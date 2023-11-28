@@ -1,23 +1,22 @@
-
+install.packages("devtools")
 install.packages("shinyjs", dependencies = TRUE)
 install.packages("shinydashboard")
-install.packages("devtools")
 
-devtools::install_local("taipan_0.1.2.tar.gz", force = TRUE)
+devtools::install_local("taipan_0.1.2.tar.gz", force = TRUE, upgrade = "never")
 
 library(taipan)
 library(shiny)
 library(shinydashboard)
 
-files <- list.files(path = getwd(), pattern = ".jpg", recursive = TRUE)
+images <- list.files(path = paste0(getwd(),"/exercise/"), pattern = ".jpg", recursive = TRUE)
 
-images <- sample(files, 50)
+images <- paste0("exercise/", images)
 
-ids <- gsub("content/", "", images)
-ids <- gsub("/frame_", "-", ids)
+ids <- gsub("exercise/", "", images)
+ids <- gsub("frame_", "", ids)
 ids <- gsub(".jpg", "", ids)
 
-data <- data.frame(id = ids, image = images, text = rep("test", length(ids)))
+data <- data.frame(id = ids, image = images)
 
 questions <- taipanQuestions(
   scene = div(radioButtons("face", label = "Can you see a face of a politician on this image?", choices = c("Yes", "No"), selected = "No"),
@@ -41,6 +40,5 @@ questions <- taipanQuestions(
 buildTaipan(
     questions = questions,
     images = data$image,
-    # appdir = file.path(tempdir(), "taipan"), overwrite = FALSE
-    appdir = file.path("app/"), overwrite = FALSE
+    appdir = file.path("app/"), overwrite = TRUE, skip_check = TRUE
 )
