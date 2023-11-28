@@ -4,5 +4,8 @@
 *.Rhistory
 .RData
 
+max.R
 
 .Rproj.user
+
+app/*
