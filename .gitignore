@@ -1,11 +1,4 @@
-# RStudio and R project files
-
-*.Rproj.user
-*.Rhistory
-.RData
-
-max.R
-
 .Rproj.user
-
-app/*
+.Rhistory
+.RData
+.Ruserdata
